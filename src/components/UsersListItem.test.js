@@ -21,7 +21,7 @@ describe('UsersListItem.vue', () => {
       expect(wrapper.vm.$props.gender).toBe('male')
     })
 
-    test('propsの型が期待してる通りか', () => {
+    test('propsの型が期待しているとおりか', () => {
       expect(wrapper.vm.$props.id.constructor).toBe(Number)
       expect(wrapper.vm.$props.firstName.constructor).toBe(String)
       expect(wrapper.vm.$props.lastName.constructor).toBe(String)
