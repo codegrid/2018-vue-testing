@@ -22,10 +22,10 @@ describe('UsersListItem.vue', () => {
     })
 
     test('propsの型が期待してる通りか', () => {
-      expect(wrapper.vm.$props.id.constructor).toBe(Number)
-      expect(wrapper.vm.$props.firstName.constructor).toBe(String)
-      expect(wrapper.vm.$props.lastName.constructor).toBe(String)
-      expect(wrapper.vm.$props.gender.constructor).toBe(String)
+      expect(typeof wrapper.vm.$props.id).toBe('number')
+      expect(typeof wrapper.vm.$props.firstName).toBe('string')
+      expect(typeof wrapper.vm.$props.lastName).toBe('string')
+      expect(typeof wrapper.vm.$props.gender).toBe('string')
     })
 
     describe('id', () => {
