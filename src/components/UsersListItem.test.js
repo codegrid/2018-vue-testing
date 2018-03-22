@@ -6,7 +6,7 @@ describe('UsersListItem.vue', () => {
     const requiredProps = {id: 0}
     wrapper = shallow(UsersListItem, {propsData: requiredProps})
   })
-
+  
   describe('props', () => {
     test('propsを受け取れること', () => {
       wrapper.setProps({
@@ -22,10 +22,10 @@ describe('UsersListItem.vue', () => {
     })
 
     test('propsの型が期待しているとおりか', () => {
-      expect(wrapper.vm.$props.id.constructor).toBe(Number)
-      expect(wrapper.vm.$props.firstName.constructor).toBe(String)
-      expect(wrapper.vm.$props.lastName.constructor).toBe(String)
-      expect(wrapper.vm.$props.gender.constructor).toBe(String)
+      expect(typeof wrapper.vm.$props.id).toBe('number')
+      expect(typeof wrapper.vm.$props.firstName).toBe('string')
+      expect(typeof wrapper.vm.$props.lastName).toBe('string')
+      expect(typeof wrapper.vm.$props.gender).toBe('string')
     })
 
     describe('id', () => {
@@ -34,11 +34,10 @@ describe('UsersListItem.vue', () => {
         expect(id.required).toBe(true)
       })
 
-      test('typeがStringであること', () => {
+      test('typeがNumberであること', () => {
         const {id} = wrapper.vm.$options.props
         expect(id.type).toBe(Number)
       })
     })
   })
-
 })
