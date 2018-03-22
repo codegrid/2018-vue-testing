@@ -1,7 +1,9 @@
 <template>
   <div>
     <slot>
-      UsersList
+      <div data-test="defaultSlot">
+        UsersList
+      </div>
     </slot>
     <div v-for="user in users" :key="user.id">
       <UsersListItem
