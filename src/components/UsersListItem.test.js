@@ -50,50 +50,25 @@ describe('UsersListItem.vue', () => {
         })
         expect(wrapper.vm.fullName).toBe('Tarou Yamada')
       })
-
-      test('値がStringであること', () => {
-        expect(typeof wrapper.vm.fullName).toBe('string')
-      })
     })
 
-    describe('isMale', () => {
-      test('genderがmaleのときtrueであること', () => {
-        wrapper.setProps({
-          gender: 'male',
-        })
-        expect(wrapper.vm.isMale).toBe(true)
-      })
-
-      test('genderがmaleではないときにfalseであること', () => {
-        wrapper.setProps({
-          gender: 'female',
-        })
-        expect(wrapper.vm.isMale).toBe(false)
-      })
-
-      test('値がBooleanであること', () => {
-        expect(typeof wrapper.vm.isMale).toBe('boolean')
-      })
-    })
-
-    describe('isFemale', () => {
-      test('genderがfemaleのときtrueであること', () => {
-        wrapper.setProps({
-          gender: 'female',
-        })
-        expect(wrapper.vm.isFemale).toBe(true)
-      })
-
-      test('genderがfemaleではないときにfalseであること', () => {
+    describe('isMale & isFemale', () => {
+      test('genderがmaleのときisMaleがtrueであること', () => {
         wrapper.setProps({
           gender: 'male',
         })
         expect(wrapper.vm.isFemale).toBe(false)
+        expect(wrapper.vm.isMale).toBe(true)
       })
 
-      test('値がBooleanであること', () => {
-        expect(typeof wrapper.vm.isFemale).toBe('boolean')
+      test('genderがfemaleのときisFemaleがtrueであること', () => {
+        wrapper.setProps({
+          gender: 'female',
+        })
+        expect(wrapper.vm.isMale).toBe(false)
+        expect(wrapper.vm.isFemale).toBe(true)
       })
+
     })
   })
 
