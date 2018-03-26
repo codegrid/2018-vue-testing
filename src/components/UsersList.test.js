@@ -18,13 +18,6 @@ describe('UsersList', () => {
         expect(wrapper.vm.$props.users).toEqual(usersMockData)
       })
 
-      test('usersがarrayであること', () => {
-        wrapper.setProps({
-          users: usersMockData,
-        })
-        expect(Array.isArray(wrapper.vm.$props.users)).toBe(true)
-      })
-
       test('propsを渡さなかったときにusersが空配列になること', () => {
         expect(wrapper.vm.$props.users).toEqual([])
         expect(wrapper.vm.$props.users).toHaveLength(0)
@@ -61,12 +54,14 @@ describe('UsersList', () => {
           }
         })
         const slotContent = wrapper.find('[data-test="defaultSlot"]')
+        expect(slotContent.exists()).toBe(true)
         expect(slotContent.text()).toBe('default slot')
       })
 
       test('default slotを指定しない場合にフォールバックコンテンツがレンダリングされること', () => {
         wrapper.find('[data-test="defaultSlot"]')
         const slotContent = wrapper.find('[data-test="defaultSlot"]')
+        expect(slotContent.exists()).toBe(true)
         expect(slotContent.text()).toBe('UsersList')
       })
 
@@ -77,6 +72,7 @@ describe('UsersList', () => {
           }
         })
         const slotContent = wrapper.find('[data-test="footerSlot"]')
+        expect(slotContent.exists()).toBe(true)
         expect(slotContent.text()).toBe('footer slot')
       })
     })
@@ -85,47 +81,44 @@ describe('UsersList', () => {
   })
 
   describe('mount', () => {
-
-    describe('UsersListItem', () => {
-      let wrapper
-      beforeEach(() => {
-        wrapper = mount(UsersList, {
-          propsData: {
-            users: usersMockData,
-          },
-        })
+    let wrapper
+    beforeEach(() => {
+      wrapper = mount(UsersList, {
+        propsData: {
+          users: usersMockData,
+        },
       })
-      test('UsersListItemがレンダリングされること', () => {
-        expect(wrapper.contains(UsersListItem)).toBe(true)
-      })
+    })
 
-      test('usersで渡した数だけUsersListItemがレンダリングされること', () => {
-        const children = wrapper.findAll(UsersListItem)
-        expect(children).toHaveLength(usersMockData.length)
-      })
+    test('UsersListItemがレンダリングされること', () => {
+      expect(wrapper.contains(UsersListItem)).toBe(true)
+    })
 
-      test('onClickの実行でuserのidを引数にしてonSelectが呼ばれること', () => {
-        const stub = jest.fn()
-        wrapper.setMethods({
-          onSelect: stub,
-        })
-        const child = wrapper.find(UsersListItem)
-        child.vm.onClick()
-        expect(stub).toHaveBeenCalled()
-        expect(stub).toBeCalledWith({id: 1})
-      })
+    test('usersで渡した数だけUsersListItemがレンダリングされること', () => {
+      const children = wrapper.findAll(UsersListItem)
+      expect(children).toHaveLength(usersMockData.length)
+    })
 
-      test('onClickRemoveの実行でuserのidを引数にonRemoveが呼ばれること', () => {
-        const stub = jest.fn()
-        wrapper.setMethods({
-          onRemove: stub,
-        })
-        const child = wrapper.find(UsersListItem)
-        child.vm.onClickRemove()
-        expect(stub).toHaveBeenCalled()
-        expect(stub).toBeCalledWith({id: 1})
+    test('onClickの実行でuserのidを引数にしてonSelectが呼ばれること', () => {
+      const stub = jest.fn()
+      wrapper.setMethods({
+        onSelect: stub,
       })
+      const child = wrapper.find(UsersListItem)
+      child.vm.onClick()
+      expect(stub).toHaveBeenCalled()
+      expect(stub).toBeCalledWith({id: 1})
+    })
 
+    test('onClickRemoveの実行でuserのidを引数にonRemoveが呼ばれること', () => {
+      const stub = jest.fn()
+      wrapper.setMethods({
+        onRemove: stub,
+      })
+      const child = wrapper.find(UsersListItem)
+      child.vm.onClickRemove()
+      expect(stub).toHaveBeenCalled()
+      expect(stub).toBeCalledWith({id: 1})
     })
 
   })
