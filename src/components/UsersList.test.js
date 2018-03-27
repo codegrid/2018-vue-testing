@@ -50,33 +50,25 @@ describe('UsersList', () => {
       test('default slotにコンテンツが挿入できること', () => {
         const wrapper = shallow(UsersList, {
           slots: {
-            default: '<div data-test="defaultSlot">default slot</div>'
+            default: '<div data-test="slotContent">slot content</div>'
           }
         })
-        const slotContent = wrapper.find('[data-test="defaultSlot"]')
+        const slotContent = wrapper.find('[data-test="slotContent"]')
         expect(slotContent.exists()).toBe(true)
-        expect(slotContent.text()).toBe('default slot')
-      })
-
-      test('default slotを指定しない場合にフォールバックコンテンツがレンダリングされること', () => {
-        wrapper.find('[data-test="defaultSlot"]')
-        const slotContent = wrapper.find('[data-test="defaultSlot"]')
-        expect(slotContent.exists()).toBe(true)
-        expect(slotContent.text()).toBe('UsersList')
+        expect(slotContent.text()).toBe('slot content')
       })
 
       test('名前付きslotにコンテンツが挿入できること', () => {
         const wrapper = shallow(UsersList, {
           slots: {
-            footer: '<div data-test="footerSlot">footer slot</div>'
+            footer: '<div data-test="slotContent">slot content</div>'
           }
         })
-        const slotContent = wrapper.find('[data-test="footerSlot"]')
+        const slotContent = wrapper.find('[data-test="slotContent"]')
         expect(slotContent.exists()).toBe(true)
-        expect(slotContent.text()).toBe('footer slot')
+        expect(slotContent.text()).toBe('slot content')
       })
     })
-
 
   })
 
@@ -90,16 +82,7 @@ describe('UsersList', () => {
       })
     })
 
-    test('UsersListItemがレンダリングされること', () => {
-      expect(wrapper.contains(UsersListItem)).toBe(true)
-    })
-
-    test('usersで渡した数だけUsersListItemがレンダリングされること', () => {
-      const children = wrapper.findAll(UsersListItem)
-      expect(children).toHaveLength(usersMockData.length)
-    })
-
-    test('onClickの実行でuserのidを引数にしてonSelectが呼ばれること', () => {
+    test('UsersListItemでselectイベントがemitされたときonSelectが呼ばれること', () => {
       const stub = jest.fn()
       wrapper.setMethods({
         onSelect: stub,
@@ -107,10 +90,9 @@ describe('UsersList', () => {
       const child = wrapper.find(UsersListItem)
       child.vm.onClick()
       expect(stub).toHaveBeenCalled()
-      expect(stub).toBeCalledWith({id: 1})
     })
 
-    test('onClickRemoveの実行でuserのidを引数にonRemoveが呼ばれること', () => {
+    test('UsersListItemでremoveイベントがemitされたときonRemoveが呼ばれること', () => {
       const stub = jest.fn()
       wrapper.setMethods({
         onRemove: stub,
@@ -118,7 +100,6 @@ describe('UsersList', () => {
       const child = wrapper.find(UsersListItem)
       child.vm.onClickRemove()
       expect(stub).toHaveBeenCalled()
-      expect(stub).toBeCalledWith({id: 1})
     })
 
   })

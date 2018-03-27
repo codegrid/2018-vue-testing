@@ -1,13 +1,13 @@
 <template>
   <div>
     <slot>
-      <div data-test="defaultSlot">
-        UsersList
-      </div>
+      UsersList
     </slot>
-    <div v-for="user in users" :key="user.id">
+    <div>
       <UsersListItem
         class="UserList_Item"
+        v-for="user in users"
+        :key="user.id"
         :id="user.id"
         :firstName="user.firstName"
         :lastName="user.lastName"
